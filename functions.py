@@ -70,11 +70,39 @@ class Funtions(Region):
         itr += 1
 
         return three_longest
-
+    @classmethod
     def give_crowdiest_county(self, file_path):
         file_path = super().get_objects(file_path)
-        max_county = []
-        current_county = 0
-        counter = 0
+        counties_dict = {}
+        current_community = 0
+        for row in file_path:
+            if row.pow != "":
+                if row.pow not in counties_dict:
+                    counties_dict[row.pow] = 1
+                else:
+                    if current_community != row.gmi:
+                        current_community = row.gmi
+                        counties_dict[row.pow] += 1
+        biggest_key = ""
+        biggest_value = 0
+        for key, value in counties_dict.items():
+            if int(value) > int(biggest_value):
+                biggest_key = key
+                biggest_value = value
+            else:
+                pass
 
-print(Funtions.three_longest_names("malopolska.csv"))
+        crowdiest_county = ""
+
+        for i in file_path:
+            if i.pow == biggest_key and i.type == "powiat":
+                crowdiest_county = "{} {}".format("powiat", i.name)
+
+        return crowdiest_county
+
+
+
+
+
+
+print(Funtions.give_crowdiest_county("malopolska.csv"))
