@@ -43,7 +43,6 @@ class Main:
 
 dupa = Main.get_objects("malopolska.csv")
 for i in dupa:
-    if isinstance(i, Powiat):
+    if isinstance(i, Wojewodztwo):
         print(i.name)
-    if isinstance(i, Gmina):
-        print(i.name, i.woj, i.powiat, i.typ)
+
