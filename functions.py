@@ -9,6 +9,10 @@ class Region:
         self.rgmi = rgmi
         self.name = name
         self.type = typ
+        self.woj = Wojewodztwo.getby_id(woj)
+
+    # def __str__(self, woj, pow, gmi, rgmi, name, typ):
+    #     return "Nr województwa: {}, Nr powiatu: {}, Nr gminy: {}, Rodzaj gminy: {}, Nazwa: {}, Typ: {}".format()
 
     @classmethod
     def get_objects(cls, file_path):
@@ -104,5 +108,5 @@ class Funtions(Region):
 
 
 
-
-print(Funtions.give_crowdiest_county("malopolska.csv"))
+for i in Region.get_objects("malopolska.csv"):
+    print(str(i))
