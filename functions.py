@@ -1,5 +1,46 @@
 import csv
 import string
+class Powiat:
+    all_included = []
+    def __init__(self, woj_no, name, woj_name=):
+        self.woj_no = woj_no
+        if woj_name:
+        self.woj_name = "Małpolskie"
+        self.name = name
+
+    def __str__(self):
+        return "Województwo {}, powiat: {}".format(self.woj_name, self.name)
+
+    @classmethod
+    def get_objects(cls, file_path):
+        file_path = csv.reader(open(str(file_path), "r"))
+        object_list = []
+        itr = 0
+        for row in file_path:
+            row = row[0].split("\t")
+            if itr == 0:
+                pass
+            else:
+                if row[5] == "powiat":
+                    woj_no = row[0]
+                    name = row[4]
+
+                    object_list.append(Powiat(woj_no, name))
+            itr = + 1
+
+        return object_list
+
+
+
+
+class District():
+    def __init__(self, county_no, dist_no, dist_name):
+        super().__init__(county_no, None)
+
+
+
+####
+
 
 class Region:
     def __init__(self, woj, pow, gmi, rgmi, name, typ):
@@ -9,7 +50,7 @@ class Region:
         self.rgmi = rgmi
         self.name = name
         self.type = typ
-        self.woj = Wojewodztwo.getby_id(woj)
+        # self.woj = Wojewodztwo.getby_id(woj)
 
     # def __str__(self, woj, pow, gmi, rgmi, name, typ):
     #     return "Nr województwa: {}, Nr powiatu: {}, Nr gminy: {}, Rodzaj gminy: {}, Nazwa: {}, Typ: {}".format()
@@ -107,6 +148,6 @@ class Funtions(Region):
 
 
 
+    for i in Powiat.get_objects("malopolska.csv"):
+        print(str(i))
 
-for i in Region.get_objects("malopolska.csv"):
-    print(str(i))
