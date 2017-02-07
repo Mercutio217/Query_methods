@@ -2,6 +2,7 @@ from functions import Wojewodztwo, Powiat, Gmina
 import csv
 
 class Main:
+
     @classmethod
     def get_objects(cls, file_path):
         file_path = csv.reader(open(str(file_path), "r"))
@@ -16,7 +17,7 @@ class Main:
                     wojewodztwo = Wojewodztwo(row[4])
                     wojewodztwo.woj_num = row[0]
                     object_list.append(wojewodztwo)
-                elif row[2] == "" and row[5] == "powiat":
+                elif row[5] == "powiat":
                     pow = Powiat(row[4])
 
                     for object in object_list:
@@ -41,9 +42,8 @@ class Main:
         return object_list
 
 dupa = Main.get_objects("malopolska.csv")
-print(dupa)
 for i in dupa:
     if isinstance(i, Powiat):
-        print(i.name, i.pow_num)
+        print(i.name)
     if isinstance(i, Gmina):
         print(i.name, i.woj, i.powiat, i.typ)

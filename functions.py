@@ -1,13 +1,13 @@
 import csv
 
 class Wojewodztwo:
-    powiaty = []
+
     def __init__(self, name):
         self.name = name
         self.woj_num = 0
 
     def __str__(self):
-        return "{} {}".format(self.woj_num, self.name)
+        return "Województwo: {}".format(self.name)
 
 
 
