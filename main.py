@@ -1,48 +1,43 @@
-from functions import Wojewodztwo, Powiat, Gmina
 import csv
+from functions import *
 
-class Main:
+with open("malopolska.csv", "r") as f:
+    reader = csv.reader(f, delimiter='\t')
 
-    @classmethod
-    def get_objects(cls, file_path):
-        file_path = csv.reader(open(str(file_path), "r"))
-        object_list = []
-        itr = 0
-        for row in file_path:
-            row = row[0].split("\t")
-            if itr == 0:
-                pass
-            else:
-                if row[1] == "":
-                    wojewodztwo = Wojewodztwo(row[4])
-                    wojewodztwo.woj_num = row[0]
-                    object_list.append(wojewodztwo)
-                elif row[5] == "powiat":
-                    pow = Powiat(row[4])
+    for row in reader:
+        if row[5] == "województwo":
+            wojewodztwo = Wojewodztwo(row[4])
+            wojewodztwo.woj_num = row[0]
 
-                    for object in object_list:
-                        if isinstance(object, Wojewodztwo) and row[0] == object.woj_num:
-                            pow.woj = object
-                    pow.pow_num = row[1]
-                    object_list.append(pow)
-                else:
-                    gmina = Gmina(row[4])
-                    for object in object_list:
-                        if isinstance(object, Wojewodztwo) and row[0] == object.woj_num:
-                            gmina.woj = object
-                        if isinstance(object, Powiat) and row[1] in object.pow_num:
-                            gmina.powiat = object.name
+        elif row[5] == "powiat":
+            powiat = Powiat(row[4])
+            for woj in Wojewodztwo.list_of_wojewodztwa:
+                if row[0] == woj.woj_num:
+                    powiat.woj = woj.name
+                    powiat.pow_num = row[1]
+        # elif
+
+        elif row[5] != "powiat" and row[5] != "województwo" and row[0] != "nazwa":
+            gmina = Gmina(row[4])
+            for powiat in Powiat.list_of_powiats:
+                if powiat.pow_num == row[1]:
+                    gmina.powiat = powiat.name
+                    gmina.woj = powiat
+                    gmina.gmi = row[2]
+                    gmina.rgmi = row[3]
                     gmina.typ = row[5]
-                    object_list.append(gmina)
+                else:
+                    gmina.powiat = gmina.name
+                    gmina.woj = powiat
+                    gmina.gmi = row[2]
+                    gmina.rgmi = row[3]
+                    gmina.typ = row[5]
 
 
 
-            itr =+ 1
 
-        return object_list
 
-dupa = Main.get_objects("malopolska.csv")
-for i in dupa:
-    if isinstance(i, Wojewodztwo):
-        print(i.name)
 
+
+for gmina in Gmina.list_of_gminas:
+    print(gmina)

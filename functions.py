@@ -1,45 +1,81 @@
-import csv
 
-class Wojewodztwo:
 
+class Region:
+    list_of_regions = []
     def __init__(self, name):
         self.name = name
-        self.woj_num = 0
+        Region.list_of_regions.append(self)
 
-    def __str__(self):
+    def __repr__(self):
+        return "{}".format(self.name)
+
+    @classmethod
+    def get_regions_count(cls):
+
+        return len(cls.list_of_regions)
+
+
+
+
+class Wojewodztwo(Region):
+    list_of_wojewodztwa = []
+    def __init__(self, name):
+        super().__init__(name)
+        self.woj_num = 0
+        self.list_of_wojewodztwa.append(self)
+
+    def __repr__(self):
         return "Województwo: {}".format(self.name)
 
 
 
-
-class Powiat:
+class Powiat(Region):
+    list_of_powiats = []
 
     def __init__(self, name):
-        self.name = name
-        self.woj_name = ""
+        super().__init__(name)
+        self.woj = None
         self.pow_num = 0
-
-
-
-
-
-
+        self.list_of_powiats.append(self)
 
 
     def __str__(self):
-        return "Województwo {}, powiat: {}".format(self.woj_name, self.name)
+        return "Województwo {}, powiat: {}".format(self.woj, self.name)
 
-class Gmina:
+    @classmethod
+    def get_powiat_count(cls):
+
+        return len(cls.list_of_powiats)
+
+
+
+
+
+class Gmina(Region):
+    list_of_gminas = []
 
     def __init__(self, name):
-        self.name = name
+        super().__init__(name)
         self.woj = ""
         self.powiat = ""
         self.gmi = 0
         self.rgmi = 0
         self.typ = ""
+        self.list_of_gminas.append(self)
+
+    def __repr__(self):
+        return "Gmina: {} Rodzaj: {} Powiat: {} Typ: {} Województwo: {}".format(self.name, self.rgmi, self.powiat, self.typ, self.woj)
+
+    @classmethod
+    def get_gmina_count(cls):
+
+        return len(cls.list_of_gminas)
+    
 
 
+
+
+print(Powiat.list_of_regions)
 
 
 #
