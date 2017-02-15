@@ -1,6 +1,5 @@
 from prettytable import PrettyTable
 # from functions import *
-j
 class Table:
     def __init__(self, object_list):
         self.object_list = object_list
