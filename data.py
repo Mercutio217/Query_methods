@@ -1,4 +1,7 @@
-from funtions import *
+
+from powiaty import *
+from gminy import *
+import csv
 
 class Data:
 
@@ -18,20 +21,20 @@ class Data:
                         if row[0] == woj.woj_num:
                             powiat.woj = woj.name
                             powiat.pow_num = row[1]
-                # elif
-
                 elif row[5] != "powiat" and row[5] != "województwo" and row[0] != "nazwa":
                     gmina = Gmina(row[4])
                     for powiat in Powiat.list_of_powiats:
                         if powiat.pow_num == row[1]:
                             gmina.powiat = powiat.name
                             gmina.woj = powiat
+                            gmina.powiat_num = row[1]
                             gmina.gmi = row[2]
                             gmina.rgmi = row[3]
                             gmina.typ = row[5]
                         else:
                             gmina.powiat = gmina.name
                             gmina.woj = powiat
+                            gmina.powiat_num = row[1]
                             gmina.gmi = row[2]
                             gmina.rgmi = row[3]
                             gmina.typ = row[5]

@@ -1,8 +1,15 @@
-from functions import *
+from regions import *
 from table import *
+from ui import *
+from data import *
 
-class Main:
+def main():
+    Data.get_data()
+    Ui.meni()
 
 
+# if __name__ == "__main__":
+#     main()
 
-print(Main.get_statistics())
+main()
+
