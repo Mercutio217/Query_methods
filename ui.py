@@ -1,9 +1,9 @@
-from regions import *
 from gminy import *
-from powiaty import *
 from table import *
 
 class Ui:
+    """The image of options, which user can choose from."""
+
     image = """""What would you like to do:
                 (1) List statistics
                 (2) Display 3 cities with longest names
@@ -12,8 +12,8 @@ class Ui:
                 (5) Advanced search
                 (0) Exit program  """
     @classmethod
-    def meni(cls):
-
+    def menu(cls):
+        """Simple funtion regarding user menu"""
 
         exit = 0
         while exit == 0:
@@ -21,20 +21,20 @@ class Ui:
             choice = input()
             if choice == "1":
                 statistics = Gmina.get_statistics()
-                print(Table.make_pretty_table(statistics), ["Statistics"])
+                print(Table.make_pretty_table(statistics, "Statystyki"))
                 back = input("Press any key to continue")
                 if back == True:
                     continue
             elif choice == "2":
                 cities = Gmina.display_3_cities_with_longest_names()
-                print(Table.make_dict_table(cities, "Miasta"))
+                print(Table.make_dict_table(cities, "Nr", "Miasta"))
                 back = input("Press any key to continue")
                 if back == True:
                     continue
 
             elif choice == "3":
                 largest_communities = Gmina.display_county_name_with_largest_num_of_communities()
-                print(Table.make_pretty_table([largest_communities], "RESULT: "))
+                print("Result:", largest_communities)
                 back = input("Press any key to continue")
                 if back == True:
                     continue
@@ -51,8 +51,8 @@ class Ui:
 
             elif choice == "5":
                 user_input = input("Please, type phrase which You would like to find ")
-                result = Gmina.searcher(user_input))
-                print(Table.make_pretty_table(result, ["Nazwa", "Typ"]))
+                result = Gmina.searcher(user_input)
+                print(Table.make_pretty_table(result, "Nazwa"))
                 back = input("Press any key to continue")
                 if back == True:
                     continue

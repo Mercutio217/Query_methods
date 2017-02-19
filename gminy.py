@@ -15,8 +15,7 @@ class Gmina(Region):
         self.list_of_gminas.append(self)
 
     def __repr__(self):
-        return "Gmina: {} Rodzaj: {} Powiat: {} Typ: {} Województwo: {}".format(self.name, self.rgmi, self.powiat,
-                                                                                self.typ, self.woj)
+        return " {} ".format(self.name)
 
     @classmethod
     def get_count(cls, type):
@@ -26,8 +25,10 @@ class Gmina(Region):
                 type_list.append(i)
         count = len(type_list)
         return "{} {}".format(type, count)
+
     @classmethod
     def get_statistics(self):
+        """This methods returns statistics of csv (basicaly it uses counting methods of each class)"""
         list_of_rows = []
         row1 = Wojewodztwo.get_wojewodztwa_count()
         row2 = Powiat.get_powiat_count()
@@ -44,6 +45,8 @@ class Gmina(Region):
 
     @classmethod
     def display_3_cities_with_longest_names(cls):
+        """This method iterates through list of gminas, picks a postion with type 'city'
+        and finds the longest 'name' string"""
         longest_dict = {1: "", 2: "", 3: ""}
         for gmina in cls.list_of_gminas:
             if gmina.typ == "miasto":
@@ -58,6 +61,11 @@ class Gmina(Region):
 
     @classmethod
     def display_county_name_with_largest_num_of_communities(cls):
+        """Similar like last one, but it takes a number of county
+        and counts the positions until it reaches another number.
+        Then, it compares it with last greatest one and returns the
+        greatest number of all (but not necessarily 42)"""
+
         county_dict = {}
         current_type = 0
         for name in cls.list_of_gminas:
@@ -72,14 +80,16 @@ class Gmina(Region):
         try:
             largest_com_county = max(county_dict, key=county_dict.get)
         except ValueError:
-            return "broken!"
-
-
+            return ""
 
         return largest_com_county
 
+
+
     @classmethod
     def multiple_categories(cls):
+        """This method checks if any name comes with different
+        category. It just compares strings."""
         name_list = []
         multi = []
         for object in Gmina.list_of_gminas:
@@ -94,17 +104,10 @@ class Gmina(Region):
 
     @staticmethod
 
-    def searcher(user_input):
-        result = []
+    def searcher(user_input):  #I had some proble with docstring here. This method checks
+        result = [] # If user input is in object name
         for object in Gmina.list_of_gminas:
             if str(user_input) in str(object.name):
                 result.append(object)
 
         return result
-
-
-
-
-print(Gmina.display_county_name_with_largest_num_of_communities())
-
-

@@ -26,18 +26,14 @@ class Data:
                     for powiat in Powiat.list_of_powiats:
                         if powiat.pow_num == row[1]:
                             gmina.powiat = powiat.name
-                            gmina.woj = powiat
-                            gmina.powiat_num = row[1]
-                            gmina.gmi = row[2]
-                            gmina.rgmi = row[3]
-                            gmina.typ = row[5]
                         else:
                             gmina.powiat = gmina.name
-                            gmina.woj = powiat
-                            gmina.powiat_num = row[1]
-                            gmina.gmi = row[2]
-                            gmina.rgmi = row[3]
-                            gmina.typ = row[5]
+                        gmina.woj = powiat
+                        gmina.powiat_num = row[1]
+                        gmina.gmi = row[2]
+                        gmina.rgmi = row[3]
+                        gmina.typ = row[5]
+
 
 
 
